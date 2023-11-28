@@ -37,7 +37,7 @@ export const Auth = () => {
   const navigate = useNavigate();
   const handlerLogin =  () => {
 
-    navigate("/rated");
+    navigate("/");
   
   };
 
