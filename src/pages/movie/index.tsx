@@ -66,6 +66,26 @@ export const Movie = () => {
                         <List.Header>Production Companies: </List.Header>
                         {data.production_companies.map((company: any)=><List.Item key={company.id}>{company.name}</List.Item>)}
                     </List.Item>
+                    <List.Item>
+                        <List.Header>Release date: </List.Header>
+                        {data.release_date}
+                    </List.Item>
+                    <List.Item>
+                        <List.Header>Revenue: </List.Header>
+                        {data.revenue}
+                    </List.Item>
+                    <List.Item>
+                        <List.Header>Runtime: </List.Header>
+                        {data.runtime}
+                    </List.Item>
+                    <List.Item>
+                        <List.Header>Vote Average: </List.Header>
+                        {data.vote_average}
+                    </List.Item>
+                    <List.Item>
+                        <List.Header>Language: </List.Header>
+                        {data.original_language}
+                    </List.Item>
                 </List>
             </Grid.Column>
           </Grid.Row>
