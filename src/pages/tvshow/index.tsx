@@ -1,5 +1,5 @@
 
-import { Segment, Header, Loader, Grid, Image,List } from "semantic-ui-react";
+import { Segment, Header, Loader,Card, Grid, Image,List,Accordion } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchTvShowDetails } from "./query";
@@ -18,7 +18,13 @@ export const TvShow = () =>{
   if (isLoading) {
     return <Loader active />;
   }
-
+  const seasonsPanels = data.seasons.map((season: any) =>({
+    key: season.id,
+    title: `season: ${season.season_number}`,
+    content: {
+        content: (<Card style={{height: '70px'}} meta={season.air_date} description={` ${season.episode_count} episods`}/>)
+    }
+  }))
   return (
     <div style={{ margin: 50 }}>
       <Segment>
@@ -56,8 +62,8 @@ export const TvShow = () =>{
                         {data.genres.map((genre: any)=><List.Item key={genre.id}>{genre.name}</List.Item>)}
                     </List.Item>
                     <List.Item>
-                        <List.Header>IMDB ID: </List.Header>
-                        {data.imdb_id}
+                        <List.Header>ID: </List.Header>
+                        {data.id}
                     </List.Item>
                     <List.Item>
                         <List.Header>Popularity: </List.Header>
@@ -69,15 +75,25 @@ export const TvShow = () =>{
                     </List.Item>
                     <List.Item>
                         <List.Header>Release date: </List.Header>
-                        {data.release_date}
+                        {data.first_air_date}
                     </List.Item>
                     <List.Item>
-                        <List.Header>Revenue: </List.Header>
-                        {data.revenue}
+                        <List.Header>seasons: </List.Header>
+                        <List.Description style={{height: "200px", overflowY: 'scroll'}}>
+                            <Accordion
+                                defaultActiveIndex={0}
+                                panels={seasonsPanels}
+                                styled
+                            />
+                        </List.Description>
                     </List.Item>
                     <List.Item>
-                        <List.Header>Runtime: </List.Header>
-                        {data.runtime}
+                        <List.Header>Networks: </List.Header>
+                        {data.networks.map((network: any) => (<Image size="tiny" style={{marginRight: 10}} key={network.id} src={`https://image.tmdb.org/t/p/original/${network.logo_path}`} />))}
+                    </List.Item>
+                    <List.Item>
+                        <List.Header>Number Of Episodes: </List.Header>
+                        {data.number_of_episodes}
                     </List.Item>
                     <List.Item>
                         <List.Header>Vote Average: </List.Header>
